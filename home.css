@@ -1,0 +1,144 @@
+/* =========================================================
+   HOME — animated typing cat
+   ========================================================= */
+.home {
+  min-height: calc(100vh - 58px);
+  display: grid;
+  place-items: center;
+  padding-top: 40px;
+}
+
+.home-stage {
+  position: relative;
+  width: min(520px, 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* soft glow behind the cat */
+.home-glow {
+  position: absolute;
+  inset: 8% 6% 22%;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--primary-soft) 0%, transparent 70%);
+  filter: blur(10px);
+  animation: glow 5s ease-in-out infinite;
+}
+@keyframes glow { 50% { transform: scale(1.08); opacity: .8; } }
+
+/* ---------- the cat ---------- */
+.cat { position: relative; width: 100%; height: auto; overflow: visible; }
+
+.cat * { stroke-linecap: round; stroke-linejoin: round; }
+
+.cat .fur,
+.cat .body {
+  fill: var(--cat-fur);
+  stroke: var(--cat-line);
+  stroke-width: 5;
+}
+.cat .ear-in { fill: var(--cat-blush); stroke: none; opacity: .7; }
+.cat .shadow { fill: var(--cat-line); opacity: .12; animation: shadow 1.6s ease-in-out infinite; transform-origin: 205px 318px; }
+@keyframes shadow { 50% { transform: scaleX(.94); opacity: .09; } }
+
+.cat .stripe { stroke: var(--cat-line); stroke-width: 4; opacity: .35; fill: none; }
+.cat .eye { fill: var(--cat-line); }
+.cat .blush { fill: var(--cat-blush); opacity: .9; }
+.cat .mouth { fill: none; stroke: var(--cat-line); stroke-width: 4; }
+.cat .toe { stroke: var(--cat-line); stroke-width: 3; fill: none; opacity: .5; }
+
+/* headphones */
+.cat .hp-band { fill: none; stroke: var(--cat-headphones); stroke-width: 13; }
+.cat .hp-cup  { fill: var(--cat-headphones); stroke: var(--cat-line); stroke-width: 4; }
+.cat .hp-pad  { fill: var(--cat-line); opacity: .35; }
+
+/* tail */
+.cat .tail path { fill: none; stroke: var(--cat-line); stroke-width: 5; }
+.cat .tail { transform-origin: 285px 255px; animation: tail 2.4s ease-in-out infinite; }
+@keyframes tail { 0%,100% { transform: rotate(-6deg); } 50% { transform: rotate(10deg); } }
+
+/* laptop */
+.cat .lid       { fill: var(--cat-laptop); stroke: var(--cat-line); stroke-width: 5; }
+.cat .lid-edge  { fill: var(--cat-line); opacity: .55; }
+.cat .face-text { font-family: "JetBrains Mono", monospace; font-size: 46px; font-weight: 600; fill: #fff; opacity: .9; }
+.cat .led       { fill: var(--accent); animation: blinkLed 1.2s steps(2) infinite; }
+@keyframes blinkLed { 50% { opacity: .2; } }
+
+/* head: bobs to the beat of the music */
+.cat .head { transform-origin: 200px 190px; animation: bob 1.2s ease-in-out infinite; }
+@keyframes bob {
+  0%,100% { transform: translateY(0) rotate(-1.2deg); }
+  50%     { transform: translateY(-4px) rotate(1.2deg); }
+}
+
+/* ears twitch */
+.cat .ear-l { transform-origin: 150px 100px; animation: twitch 5s ease-in-out infinite; }
+.cat .ear-r { transform-origin: 250px 100px; animation: twitch 5s ease-in-out 2.4s infinite; }
+@keyframes twitch {
+  0%, 90%, 100% { transform: rotate(0); }
+  93% { transform: rotate(-8deg); }
+  96% { transform: rotate(5deg); }
+}
+
+/* blink */
+.cat .eyes { transform-origin: 200px 146px; animation: blink 4.2s infinite; }
+@keyframes blink { 0%, 94%, 100% { transform: scaleY(1); } 97% { transform: scaleY(.08); } }
+
+/* body breathing */
+.cat .body { transform-origin: 200px 300px; animation: breathe 3s ease-in-out infinite; }
+@keyframes breathe { 50% { transform: scaleY(1.025); } }
+
+/* paws: alternate typing taps */
+.cat .paw { animation: tap .3s ease-in-out infinite alternate; }
+.cat .paw-r { animation-delay: .15s; animation-duration: .36s; }
+@keyframes tap {
+  from { transform: translateY(-5px); }
+  to   { transform: translateY(6px); }
+}
+
+/* laptop jiggles a hair with each tap */
+.cat .laptop { animation: laptop .3s ease-in-out infinite alternate; transform-origin: 200px 307px; }
+@keyframes laptop { to { transform: translateY(.8px); } }
+
+/* ---------- floating code bits ---------- */
+.float {
+  position: absolute;
+  left: 50%; bottom: 34%;
+  font-family: "JetBrains Mono", monospace;
+  font-weight: 500;
+  font-size: 1.15rem;
+  color: var(--primary);
+  opacity: 0;
+  pointer-events: none;
+  animation: rise 4.5s ease-in infinite;
+}
+.f1 { --x: -90px;  animation-delay: 0s;   }
+.f2 { --x: 70px;   animation-delay: .9s;  color: var(--secondary); }
+.f3 { --x: -30px;  animation-delay: 1.8s; color: var(--accent); }
+.f4 { --x: 110px;  animation-delay: 2.7s; }
+.f5 { --x: -120px; animation-delay: 3.5s; color: var(--secondary); }
+@keyframes rise {
+  0%   { transform: translate(var(--x), 0) scale(.6); opacity: 0; }
+  15%  { opacity: .9; }
+  100% { transform: translate(calc(var(--x) * 1.5), -190px) scale(1.2) rotate(12deg); opacity: 0; }
+}
+
+/* ---------- typed line ---------- */
+.typing-line {
+  margin-top: 22px;
+  min-height: 1.8em;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 1rem;
+  color: var(--text-muted);
+}
+.typing-line .prompt { color: var(--primary); font-weight: 600; }
+.caret {
+  display: inline-block;
+  width: 9px; height: 1.1em;
+  margin-left: 3px;
+  vertical-align: text-bottom;
+  background: var(--primary);
+  animation: caret 1s steps(2) infinite;
+}
+@keyframes caret { 50% { opacity: 0; } }

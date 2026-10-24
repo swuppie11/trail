@@ -1,0 +1,127 @@
+/* =========================================================
+   BASE — reset, color tokens, shared pieces
+   ---------------------------------------------------------
+   >>> PUT YOUR COLOR PALETTE HERE <<<
+   Only change the values in :root and [data-theme="dark"].
+   Everything else in the site reads from these variables.
+   ========================================================= */
+
+:root {
+  /* brand */
+  --primary:        #7c83fd;   /* buttons, active nav, accents   */
+  --primary-soft:   #e6e8ff;   /* tinted backgrounds             */
+  --secondary:      #ff9ecb;   /* blush, highlights              */
+  --accent:         #6ee7b7;   /* status dot, success            */
+
+  /* surfaces */
+  --bg:             #f7f7fb;   /* page background                */
+  --surface:        #ffffff;   /* navbar, sections               */
+  --card:           #ffffff;   /* cards                          */
+  --card-alt:       #eeeff8;   /* inner tiles / placeholders     */
+  --border:         #e3e4f0;
+
+  /* text */
+  --text:           #23244a;
+  --text-muted:     #6b6d92;
+
+  /* cat */
+  --cat-fur:        #ffffff;
+  --cat-line:       #2b2b3a;
+  --cat-blush:      #ffb3cf;
+  --cat-laptop:     #8d90a8;
+  --cat-headphones: #4a4d63;
+
+  /* effects */
+  --shadow:         0 10px 30px rgba(60, 64, 140, .10);
+  --shadow-hover:   0 18px 40px rgba(60, 64, 140, .18);
+  --radius:         18px;
+  --ease:           cubic-bezier(.22, .8, .24, 1);
+}
+
+[data-theme="dark"] {
+  --primary:        #9aa0ff;
+  --primary-soft:   #2a2c52;
+  --secondary:      #ff8fc0;
+  --accent:         #5eead4;
+
+  --bg:             #14152a;
+  --surface:        #1c1d38;
+  --card:           #23244a;
+  --card-alt:       #2d2f5c;
+  --border:         #34366a;
+
+  --text:           #eceeff;
+  --text-muted:     #a3a6d4;
+
+  --cat-fur:        #f4f4ff;
+  --cat-line:       #0f1020;
+  --cat-blush:      #ff9fc4;
+  --cat-laptop:     #6d7090;
+  --cat-headphones: #9aa0ff;
+
+  --shadow:         0 10px 30px rgba(0, 0, 0, .35);
+  --shadow-hover:   0 18px 40px rgba(0, 0, 0, .5);
+}
+
+/* ---------- reset ---------- */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; scroll-padding-top: 70px; }
+body {
+  font-family: "Poppins", system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  transition: background .4s var(--ease), color .4s var(--ease);
+  -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; text-decoration: none; }
+button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+
+/* ---------- shared layout ---------- */
+.section {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 90px 24px;
+}
+.section-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--text-muted);
+  margin-bottom: 44px;
+}
+.section-title::after {
+  content: "";
+  display: block;
+  width: 36px; height: 3px;
+  margin: 12px auto 0;
+  border-radius: 3px;
+  background: linear-gradient(90deg, var(--primary), var(--secondary));
+}
+
+/* ---------- shared arrow buttons ---------- */
+.arrow {
+  width: 46px; height: 46px;
+  flex: none;
+  display: grid; place-items: center;
+  font-size: 1.4rem;
+  border-radius: 50%;
+  background: var(--card);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  transition: transform .25s var(--ease), background .25s, color .25s;
+}
+.arrow:hover { background: var(--primary); color: #fff; transform: scale(1.1); }
+.arrow:active { transform: scale(.94); }
+.arrow:disabled { opacity: .35; pointer-events: none; }
+
+/* ---------- scroll reveal ---------- */
+.reveal { opacity: 0; transform: translateY(36px); transition: opacity .8s var(--ease), transform .8s var(--ease); }
+.reveal.in { opacity: 1; transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  .reveal { opacity: 1; transform: none; }
+}

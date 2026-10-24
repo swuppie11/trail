@@ -1,0 +1,61 @@
+/* =========================================================
+   SKILLS — sliding carousel
+   ========================================================= */
+.carousel {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  --gap: 20px;
+  --visible: 3;
+}
+
+.carousel .viewport { flex: 1; overflow: hidden; padding: 14px 6px 24px; }
+
+.carousel .track {
+  display: flex;
+  gap: var(--gap);
+  transition: transform .55s var(--ease);
+  will-change: transform;
+}
+
+.skill-card {
+  flex: 0 0 calc((100% - var(--gap) * (var(--visible) - 1)) / var(--visible));
+  padding: 30px 20px 26px;
+  text-align: center;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  transition: transform .3s var(--ease), box-shadow .3s, border-color .3s;
+}
+.skill-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-hover); border-color: var(--primary); }
+
+.skill-icon {
+  width: 64px; height: 64px;
+  margin: 0 auto 16px;
+  display: grid; place-items: center;
+  font-family: "JetBrains Mono", monospace;
+  font-weight: 500;
+  font-size: 1.15rem;
+  color: var(--primary);
+  background: var(--primary-soft);
+  border-radius: 18px;
+  transition: transform .4s var(--ease), background .3s, color .3s;
+}
+.skill-card:hover .skill-icon { transform: rotate(-8deg) scale(1.1); background: var(--primary); color: #fff; }
+
+.skill-card h3 { font-size: 1rem; font-weight: 600; margin-bottom: 14px; }
+
+/* proficiency bar fills when the section is revealed */
+.bar { height: 6px; border-radius: 6px; background: var(--card-alt); overflow: hidden; }
+.bar i {
+  display: block; height: 100%;
+  width: 0;
+  border-radius: 6px;
+  background: linear-gradient(90deg, var(--primary), var(--secondary));
+  transition: width 1.2s var(--ease) .3s;
+}
+.skills.in .bar i { width: var(--lvl); }
+
+@media (max-width: 800px) { .carousel { --visible: 2; } }
+@media (max-width: 520px) { .carousel { --visible: 1; } .arrow { width: 38px; height: 38px; } }
